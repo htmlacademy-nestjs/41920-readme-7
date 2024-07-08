@@ -1,0 +1,24 @@
+{
+  "name": "vault",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/vault/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "vault:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "vault:build:development"
+        },
+        "production": {
+          "buildTarget": "vault:build:production"
+        }
+      }
+    }
+  }
+}

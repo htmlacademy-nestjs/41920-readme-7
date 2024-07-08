@@ -1,6 +1,6 @@
 # Личный проект «Readme»
 
-* Студент: [Неопознанный енот](https://up.htmlacademy.ru/nodejs-2/7/user/41920).
+* Студент: [Aleksei Sherstnev](https://up.htmlacademy.ru/nodejs-2/7/user/41920).
 * Наставник: `Rail Sakhaviev`.
 
 ---
