@@ -1,7 +1,7 @@
 import { PostType } from './post-type.enum';
-import { Like } from './like.type';
 import { Tag } from './tag.type';
 import { PostStatus } from './post-status.enum';
+import { Like } from './like.type';
 
 export type Post = {
   id: string;
@@ -21,6 +21,6 @@ export type Post = {
   postText?: string;
   videoLink?: string;
   tags: Tag[];
-  // likes: Like[];
+  likes: Like[];
   // comments: Comment[];
 };

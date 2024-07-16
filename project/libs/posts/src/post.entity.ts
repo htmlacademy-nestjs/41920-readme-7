@@ -1,12 +1,14 @@
 import { Entity, Post, PostStatus, PostType, StorableEntity } from '@project/shared/core';
 import { TagEntity } from '@project/tags';
 import { TagFactory } from '../../tags/src/tag.factory';
+import { LikeEntity } from '@project/likes';
+import { LikeFactory } from '../../likes/src/like.factory';
 
 export class PostEntity extends Entity implements StorableEntity<Post> {
   title?: string;
-  type: PostType;
-  userId: string;
-  status: PostStatus;
+  type: PostType = PostType.Text;
+  userId: string = '';
+  status: PostStatus = PostStatus.Draft;
   videoLink?: string;
   announce?: string;
   postText?: string;
@@ -17,9 +19,9 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
   description?: string;
   originalAuthorId?: string;
   originalPostId?: string;
-  isReposted: boolean;
-  tags: TagEntity[];
-  // public likes: LikeEntity[];
+  isReposted!: boolean;
+  tags: TagEntity[] = [];
+  likes: LikeEntity[] = [];
   // public comments: CommentEntity[];
 
   constructor(post?: Post) {
@@ -49,11 +51,17 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
     this.videoLink = post.videoLink;
     this.announce = post.announce;
 
-    const tagFactory = new TagFactory();
-
-    this.tags = post.tags.map((data) => tagFactory.create(data));
-    //  this.likes = post.likes.map(LikeEntity.fromObject);
-    //  this.comments = post.comments.map(CommentEntity.fromObject);
+    this.tags = post.tags.map((data) =>
+      TagFactory.createFromTitle({
+        title: data.title,
+      }),
+    );
+    this.likes = post.likes.map((data) =>
+      LikeFactory.createFromUserIdAndPostId({
+        userId: data.userId,
+        postId: data.id ?? '',
+      }),
+    );
 
     return this;
   }
@@ -76,7 +84,7 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
       videoLink: this.videoLink,
       tags: this.tags.map((tag) => tag.toPOJO()),
       //    comments: this.comments.map((comment) => comment.toPOJO()) ?? [],
-      //   likes: this.likes.map((like) => like.toPOJO()),
+      likes: this.likes.map((like) => like.toPOJO()),
     };
 
     if (this.isReposted) {

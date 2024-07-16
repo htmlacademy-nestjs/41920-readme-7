@@ -1,9 +1,8 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 
 import { LikeRepository } from './like.repository';
 import { LikeEntity } from './like.entity';
 import { CreateLikeDto } from './dto/create-like.dto';
-import { PostFactory } from '@project/posts';
 import { LikeFactory } from './like.factory';
 
 @Injectable()

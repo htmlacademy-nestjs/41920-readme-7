@@ -5,7 +5,6 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { PostRepository } from './post.repository';
 import { PostFactory } from './post.factory';
 import { TagEntity } from '@project/tags';
-import { Tag } from '@project/types';
 
 @Injectable()
 export class PostService {
