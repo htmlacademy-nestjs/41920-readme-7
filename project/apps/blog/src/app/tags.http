@@ -1,19 +1,15 @@
 
-# Show tag by id
-GET http://localhost:3000/api/tags/df905205-3d14-4c2b-ae42-2a0e75262960  HTTP/1.1
+# Show like by id
+GET http://localhost:3000/api/posts/df905205-3d14-4c2b-ae42-2a0e75262960/tags HTTP/1.1
 
 ###
 
-# Create new tag
-POST http://localhost:3000/api/tags HTTP/1.1
-Content-Type: application/json
-
-{
-  "title":"value321",
-  "postId": "123"
-}
+# Create new like
+# Create like by post id
+POST http://localhost:3000/api/posts/df905205-3d14-4c2b-ae42-2a0e75262960/tags?userId=123 HTTP/1.1
+###
 
 ###
 
-# Delete tag by id
-DELETE http://localhost:3000/api/tags/50cae043-14bd-420c-9ec8-47bc514d767d HTTP/1.1
+# Delete like by id
+DELETE http://localhost:3000/api/posts/df905205-3d14-4c2b-ae42-2a0e75262960/tags?userId=123 HTTP/1.1

@@ -5,7 +5,7 @@ import { fillDto } from '@project/shared/helpers';
 import { CreateTagDto, TagRdo, TagService } from '@project/tags';
 
 @ApiTags('Tags')
-@Controller('tags')
+@Controller('posts/:postId/tags')
 export class TagsController {
   constructor(private readonly tagService: TagService) {}
 
@@ -27,7 +27,7 @@ export class TagsController {
   }
 
   @Delete('/:id')
-  public async delete(@Param('id') id: string) {
+  public async delete(@Param('postId') id: string) {
     await this.tagService.deleteTag(id);
   }
 }
