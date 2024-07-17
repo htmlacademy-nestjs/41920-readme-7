@@ -1,4 +1,3 @@
-export * from './comment.type';
 export * from './like.type';
 export * from './tag.type';
 export * from './post.type';

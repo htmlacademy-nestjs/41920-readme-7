@@ -57,11 +57,5 @@ export class PostRdo {
   tags: TagRdo[] = [];
 
   @Expose()
-  likes: LikeRdo[];
-  /*
-  @Expose()
-  comments: CommentRdo[];
-
-
- */
+  likes: LikeRdo[] = [];
 }

@@ -35,6 +35,7 @@ export class LikesController {
 
   @Post('/')
   public async create(@Body() dto: CreateLikeDto) {
+    console.log('hello');
     const postEntity = await this.postService.getPost(dto.postId);
     if (!postEntity) {
       throw new NotFoundException(`Post with id «${dto.postId}» not found`);

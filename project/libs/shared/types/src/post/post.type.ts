@@ -22,5 +22,4 @@ export type Post = {
   videoLink?: string;
   tags: Tag[];
   likes: Like[];
-  // comments: Comment[];
 };

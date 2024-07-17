@@ -4,11 +4,14 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostRepository } from './post.repository';
 import { PostFactory } from './post.factory';
-import { TagEntity } from '@project/tags';
 
 @Injectable()
 export class PostService {
   constructor(private readonly postRepository: PostRepository) {}
+
+  public async getAllPosts() {
+    return this.postRepository.findAll();
+  }
 
   public async createPost(dto: CreatePostDto) {
     const newPost = PostFactory.createFromCreatePostDto(dto);
@@ -27,10 +30,6 @@ export class PostService {
 
   public async getPost(id: string) {
     return this.postRepository.findById(id);
-  }
-
-  public async getAllPosts() {
-    return this.postRepository.findAll();
   }
 
   public async updatePost(id: string, dto: UpdatePostDto) {

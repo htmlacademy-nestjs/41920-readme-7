@@ -42,4 +42,9 @@ export class UpdatePostDto {
   @IsArray()
   @ArrayNotEmpty()
   public tags: string[] = [];
+
+  @IsUUID('all', { each: true })
+  @IsArray()
+  @ArrayNotEmpty()
+  public likes: string[] = [];
 }

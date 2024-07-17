@@ -22,7 +22,6 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
   isReposted!: boolean;
   tags: TagEntity[] = [];
   likes: LikeEntity[] = [];
-  // public comments: CommentEntity[];
 
   constructor(post?: Post) {
     super();
@@ -84,14 +83,8 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
       postText: this.postText,
       videoLink: this.videoLink,
       tags: this.tags.map((tag) => tag.toPOJO()),
-      //    comments: this.comments.map((comment) => comment.toPOJO()) ?? [],
       likes: this.likes.map((like) => like.toPOJO()),
     };
-
-    if (this.isReposted) {
-      post['originalPostId'] = this.originalPostId;
-      post['originalAuthorId'] = this.originalAuthorId;
-    }
 
     return post;
   }
