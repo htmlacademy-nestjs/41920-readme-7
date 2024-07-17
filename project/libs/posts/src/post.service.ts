@@ -10,8 +10,8 @@ import { TagEntity } from '@project/tags';
 export class PostService {
   constructor(private readonly postRepository: PostRepository) {}
 
-  public async createPost(dto: CreatePostDto, tags: TagEntity[]) {
-    const newPost = PostFactory.createFromCreatePostDto(dto, tags);
+  public async createPost(dto: CreatePostDto) {
+    const newPost = PostFactory.createFromCreatePostDto(dto);
     await this.postRepository.save(newPost);
 
     return newPost;
@@ -33,7 +33,7 @@ export class PostService {
     return this.postRepository.findAll();
   }
 
-  public async updatePost(id: string, dto: UpdatePostDto, tags: TagEntity[]) {
+  public async updatePost(id: string, dto: UpdatePostDto) {
     const post = await this.postRepository.findById(id);
     if (!post) {
       throw new NotFoundException(`Post with id «${id}» not found`);
@@ -51,7 +51,6 @@ export class PostService {
     post.quoteText = dto.quoteText;
     post.quoteAuthor = dto.quoteAuthor;
     post.type = dto.type;
-    post.tags = tags;
 
     await this.postRepository.update(post);
 

@@ -6,4 +6,7 @@ export class TagRdo {
 
   @Expose()
   public title: string = '';
+
+  @Expose()
+  public postId: string = '';
 }

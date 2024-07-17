@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
 import { EntityFactory, Post } from '@project/shared/core';
-import { TagEntity } from '@project/tags';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostEntity } from './post.entity';
 
@@ -11,10 +10,7 @@ export class PostFactory implements EntityFactory<PostEntity> {
     return new PostEntity(data);
   }
 
-  public static createFromCreatePostDto(
-    dto: CreatePostDto,
-    tags: TagEntity[],
-  ): PostEntity {
+  public static createFromCreatePostDto(dto: CreatePostDto): PostEntity {
     const entity = new PostEntity();
     entity.userId = dto.userId;
     entity.type = dto.type;
@@ -29,7 +25,7 @@ export class PostFactory implements EntityFactory<PostEntity> {
     entity.quoteAuthor = dto.quoteAuthor;
     //   entity.comments = [];
     entity.likes = [];
-    entity.tags = tags;
+    entity.tags = [];
 
     return entity;
   }

@@ -11,9 +11,10 @@ export class TagRepository extends BaseMemoryRepository<TagEntity> {
     super(entityFactory);
   }
 
-  public async findByIds(ids: string[]) {
-    const tags = ids.map((data) => this.entities.get(data));
-    return tags && tags?.map((data) => this.entityFactory.create(data));
+  public async findByPostId(postId: string) {
+    const entities = Array.from(this.entities.values());
+    const tags = entities.filter((entity) => entity.postId === postId);
+    return tags.map(this.entityFactory.create);
   }
 
   public async findByTitle(title: string) {

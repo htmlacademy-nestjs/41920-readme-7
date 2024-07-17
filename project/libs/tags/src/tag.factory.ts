@@ -15,6 +15,7 @@ export class TagFactory implements EntityFactory<TagEntity> {
   public static createFromTitle(dto: CreateTagDto): TagEntity {
     const entity = new TagEntity(dto);
     entity.title = dto.title;
+    entity.postId = dto.postId;
 
     return entity;
   }

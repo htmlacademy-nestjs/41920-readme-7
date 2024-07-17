@@ -54,6 +54,7 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
     this.tags = post.tags.map((data) =>
       TagFactory.createFromTitle({
         title: data.title,
+        postId: data.postId,
       }),
     );
     this.likes = post.likes.map((data) =>

@@ -41,7 +41,7 @@ export class UsersService {
 
     const userEntity = await new UsersEntity(user).setPassword(password);
 
-    this.userRepository.save(userEntity);
+    await this.userRepository.save(userEntity);
 
     return userEntity;
   }

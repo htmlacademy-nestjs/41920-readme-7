@@ -12,12 +12,8 @@ import { TagEntity } from './tag.entity';
 export class TagService {
   constructor(private readonly tagRepository: TagRepository) {}
 
-  public async getAllTags() {
-    return this.tagRepository.findAll();
-  }
-
-  public async getTagsByIds(tagIds: string[]) {
-    return await this.tagRepository.findByIds(tagIds);
+  public async getTagsByPostId(postId: string): Promise<TagEntity[]> {
+    return this.tagRepository.findByPostId(postId);
   }
 
   public async createTag(dto: CreateTagDto) {
@@ -40,6 +36,7 @@ export class TagService {
     const tagEntity = new TagEntity(dto);
     await this.tagRepository.save(tagEntity);
 
+    console.log(321);
     return tagEntity;
   }
 

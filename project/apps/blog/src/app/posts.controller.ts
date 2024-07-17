@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { fillDto } from '@project/shared/helpers';
@@ -31,16 +31,14 @@ export class PostsController {
 
   @Post('/')
   public async create(@Body() dto: CreatePostDto) {
-    const tagEntities = await this.tagService.getTagsByIds(dto.tags);
-    const postEntity = await this.postService.createPost(dto, tagEntities);
+    const postEntity = await this.postService.createPost(dto);
 
     return fillDto(PostRdo, postEntity.toPOJO());
   }
 
-  @Patch('/:postId')
+  @Put('/:postId')
   public async update(@Param('postId') postId: string, @Body() dto: UpdatePostDto) {
-    const tagEntities = await this.tagService.getTagsByIds(dto.tags);
-    const postEntity = await this.postService.updatePost(postId, dto, tagEntities);
+    const postEntity = await this.postService.updatePost(postId, dto);
 
     return fillDto(PostRdo, postEntity.toPOJO());
   }
