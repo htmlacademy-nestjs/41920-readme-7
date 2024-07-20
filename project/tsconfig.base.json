@@ -10,17 +10,22 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@project/account/authentication": ["libs/account/authentication/src/index.ts"],
+      "@project/comments": ["libs/comments/src/index.ts"],
+      "@project/likes": ["libs/likes/src/index.ts"],
+      "@project/posts": ["libs/posts/src/index.ts"],
+      "@project/shared/core": ["libs/shared/core/src/index.ts"],
+      "@project/shared/data-access": ["libs/shared/data-access/src/index.ts"],
+      "@project/shared/helpers": ["libs/shared/helpers/src/index.ts"],
+      "@project/tags": ["libs/tags/src/index.ts"],
+      "@project/types": ["libs/shared/types/src/index.ts"],
+      "@project/users": ["libs/users/src/index.ts"]
+    }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

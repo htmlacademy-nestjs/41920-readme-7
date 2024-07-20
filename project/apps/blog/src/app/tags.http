@@ -1,0 +1,10 @@
+
+GET http://localhost:3000/api/posts/df905205-3d14-4c2b-ae42-2a0e75262960/tags HTTP/1.1
+
+###
+
+POST http://localhost:3000/api/posts/df905205-3d14-4c2b-ae42-2a0e75262960/tags?userId=123 HTTP/1.1
+###
+
+###
+DELETE http://localhost:3000/api/posts/df905205-3d14-4c2b-ae42-2a0e75262960/tags?userId=123 HTTP/1.1

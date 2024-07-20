@@ -1,0 +1,26 @@
+POST http://localhost:3000/api/users/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user2@notfound.local",
+  "dateBirth": "2012-02-22",
+  "firstname": "Keks",
+  "lastname": "Smith",
+  "password": "123456"
+}
+
+###
+
+GET http://localhost:3000/api/users/b3551b44-711d-407b-a9f8-ee21051eba7a HTTP/1.1
+
+###
+
+POST http://localhost:3000/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user2@notfound.local",
+  "password": "123456"
+}
+
+###

@@ -1,0 +1,9 @@
+GET http://localhost:3000/api/posts/05de2091-ce0f-4ea6-900a-8efe56a0d7e/likes HTTP/1.1
+
+###
+
+POST http://localhost:3000/api/posts/05de2091-ce0f-4ea6-900a-8efe56a0d7e/likes?userId=123 HTTP/1.1
+
+###
+
+DELETE http://localhost:3000/api/posts/05de2091-ce0f-4ea6-900a-8efe56a0d7e/likes?userId=123 HTTP/1.1
