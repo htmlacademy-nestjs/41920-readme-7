@@ -17,6 +17,7 @@
     "paths": {
       "@project/account/authentication": ["libs/account/authentication/src/index.ts"],
       "@project/comments": ["libs/comments/src/index.ts"],
+      "@project/config": ["libs/config/src/index.ts"],
       "@project/likes": ["libs/likes/src/index.ts"],
       "@project/posts": ["libs/posts/src/index.ts"],
       "@project/shared/core": ["libs/shared/core/src/index.ts"],
