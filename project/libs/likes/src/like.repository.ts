@@ -27,7 +27,7 @@ export class LikeRepository extends BasePostgresRepository<LikeEntity, Like> {
       },
     });
 
-    return documents.map(this.createEntityFromDocument);
+    return documents.map((document) => this.createEntityFromDocument(document));
   }
 
   public async findByPostAndUserId(postId: string, userId: string) {

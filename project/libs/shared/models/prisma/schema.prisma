@@ -61,5 +61,6 @@ model Tag {
   updatedAt DateTime @updatedAt @map("updated_at")
   postId    String   @map("post_id")
 
+  @@index([postId])
   @@map("tags")
 }

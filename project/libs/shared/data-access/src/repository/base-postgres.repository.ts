@@ -19,6 +19,7 @@ export abstract class BasePostgresRepository<
       return null;
     }
 
+    console.log(this.entityFactory.create(document as ReturnType<T['toPOJO']>));
     return this.entityFactory.create(document as ReturnType<T['toPOJO']>);
   }
 

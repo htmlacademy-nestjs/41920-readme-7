@@ -8,6 +8,8 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
   title?: string;
   type: PostType = PostType.Text;
   userId: string = '';
+  createdAt: Date = new Date();
+  updatedAt: Date = new Date();
   status: PostStatus = PostStatus.Draft;
   videoLink?: string;
   announce?: string;
@@ -41,6 +43,8 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
     this.originalPostId = post.originalPostId;
     this.isReposted = post.isReposted;
     this.title = post.title;
+    this.createdAt = post.createdAt;
+    this.updatedAt = post.updatedAt;
     this.description = post.description;
     this.link = post.link;
     this.photoLink = post.photoLink;
@@ -50,13 +54,13 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
     this.videoLink = post.videoLink;
     this.announce = post.announce;
 
-    this.tags = post.tags.map((data) =>
+    this.tags = post.tags?.map((data) =>
       TagFactory.createFromTitle({
         title: data.title,
         postId: data.postId,
       }),
     );
-    this.likes = post.likes.map((data) =>
+    this.likes = post.likes?.map((data) =>
       LikeFactory.createFromUserIdAndPostId({
         userId: data.userId,
         postId: data.id ?? '',
@@ -78,12 +82,14 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
       description: this.description,
       photoLink: this.photoLink,
       quoteText: this.quoteText,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
       quoteAuthor: this.quoteAuthor,
       announce: this.announce,
       postText: this.postText,
       videoLink: this.videoLink,
-      tags: this.tags.map((tag) => tag.toPOJO()),
-      likes: this.likes.map((like) => like.toPOJO()),
+      tags: this.tags?.map((tag) => tag.toPOJO()),
+      likes: this.likes?.map((like) => like.toPOJO()),
     };
 
     return post;

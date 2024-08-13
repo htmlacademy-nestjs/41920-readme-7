@@ -50,12 +50,16 @@ async function seedDb(prismaClient: PrismaClient) {
         postText: post.postText,
         quoteText: post.quoteText,
         quoteAuthor: post.quoteAuthor,
-        Tag: {
-          create: post.tags,
-        },
-        Like: {
-          create: post.likes,
-        },
+        tags: post.tags
+          ? {
+              create: post.tags,
+            }
+          : undefined,
+        likes: post.likes
+          ? {
+              create: post.likes,
+            }
+          : undefined,
       },
     });
   }
