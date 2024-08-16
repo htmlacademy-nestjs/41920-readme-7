@@ -2,13 +2,22 @@ POST http://localhost:3000/api/posts HTTP/1.1
 Content-Type: application/json
 
 {
-  "title": "hello",
-  "userId": "321",
-  "type": "TEXT",
-  "status": "DRAFT",
-  "announce": "announce",
-  "postText": "text",
-  "id": "87c8fa30-f703-42aa-9ebd-bba2ed0870cd"
+  "userId": "658170cbb954e9f5b905ccf5",
+  "type": "text",
+  "status": "published",
+  "id": "6d308040-96a2-4162-bea6-2338e9976541",
+  "isReposted": null,
+  "title": "Мой второй пост",
+  "link": null,
+  "description": "Это мой первый пост в блоге",
+  "photoLink": null,
+  "quoteText": null,
+  "quoteAuthor": null,
+  "announce": "Краткое содержание первого поста",
+  "postText": "Полный текст моего первого поста. Здесь может быть много интересной информации.",
+  "videoLink": null,
+  "tags": [],
+  "likes": []
 }
 
 ###

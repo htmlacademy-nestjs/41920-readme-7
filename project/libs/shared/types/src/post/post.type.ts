@@ -8,6 +8,8 @@ export type Post = {
   userId: string;
   originalAuthorId?: string;
   originalPostId?: string;
+  createdAt: Date;
+  updatedAt: Date;
   type: PostType;
   status: PostStatus;
   isReposted: boolean;

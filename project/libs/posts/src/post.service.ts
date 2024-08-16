@@ -4,12 +4,13 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostRepository } from './post.repository';
 import { PostFactory } from './post.factory';
+import { PostEntity } from './post.entity';
 
 @Injectable()
 export class PostService {
   constructor(private readonly postRepository: PostRepository) {}
 
-  public async getAllPosts() {
+  public async getAllPosts(): Promise<PostEntity[]> {
     return this.postRepository.findAll();
   }
 
