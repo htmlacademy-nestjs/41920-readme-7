@@ -4,6 +4,8 @@ import { Like } from '@project/types';
 export class LikeEntity extends Entity implements StorableEntity<Like> {
   public postId: string = '';
   public userId: string = '';
+  public createdAt: Date = new Date();
+  public updatedAt: Date = new Date();
 
   constructor(data: Like) {
     super();
@@ -16,6 +18,8 @@ export class LikeEntity extends Entity implements StorableEntity<Like> {
 
   public populate(data: Like) {
     this.id = data.id ?? '';
+    this.createdAt = data.createdAt;
+    this.updatedAt = data.updatedAt;
     this.postId = data.postId;
     this.userId = data.userId;
 
@@ -25,6 +29,8 @@ export class LikeEntity extends Entity implements StorableEntity<Like> {
   public toPOJO() {
     return {
       id: this.id,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
       postId: this.postId,
       userId: this.userId,
     };

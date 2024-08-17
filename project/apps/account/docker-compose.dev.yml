@@ -9,15 +9,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_DB}
     ports:
-      - 27017:27017
+      - ${MONGO_PORT}:27017
     volumes:
       - readme.mongo.account:/data/db
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
-      interval: 10s
-      timeout: 10s
-      retries: 5
-      start_period: 40s
 
   readme.user.mongo.ui:
     image: mongo-express:1.0.2-20
@@ -30,16 +24,9 @@ services:
       ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_PASSWORD}
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD}
-      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@readme.account.mongo:${DB_PORT}/
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@readme.account.mongo:27017/${MONGO_DB}?authSource=${MONGO_AUTH_BASE}
     depends_on:
-      readme.account.mongo:
-        condition: service_healthy
-    healthcheck:
-      test: wget --quiet --tries=3 --spider http://localhost:8081 || exit 1
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+      - readme.account.mongo
 
 volumes:
   readme.mongo.account:

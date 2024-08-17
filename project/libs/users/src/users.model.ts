@@ -7,10 +7,8 @@ import { AuthUser } from '@project/types';
   timestamps: true,
 })
 export class UsersModel extends Document implements AuthUser {
-  @Prop({
-    required: true,
-  })
-  public dateOfBirth: Date = new Date();
+  @Prop()
+  public avatar?: string;
 
   @Prop({
     required: true,
@@ -21,12 +19,7 @@ export class UsersModel extends Document implements AuthUser {
   @Prop({
     required: true,
   })
-  public firstname: string = '';
-
-  @Prop({
-    required: true,
-  })
-  public lastname: string = '';
+  public login: string = '';
 
   @Prop({
     required: true,
