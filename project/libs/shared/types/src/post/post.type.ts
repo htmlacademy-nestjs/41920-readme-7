@@ -6,8 +6,6 @@ import { Comment } from './comment.type';
 export type Post = {
   id: string;
   userId: string;
-  originalAuthorId?: string;
-  originalPostId?: string;
   createdAt: Date;
   updatedAt: Date;
   type: PostType;

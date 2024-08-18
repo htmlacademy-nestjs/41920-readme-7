@@ -4,17 +4,17 @@ import { PostRdo } from '@project/posts';
 
 export class PostWithPaginationRdo {
   @Expose()
-  public entities: PostRdo[];
+  public entities: PostRdo[] = [];
 
   @Expose()
-  public totalPages: number;
+  public totalPages!: number;
 
   @Expose()
-  public totalItems: number;
+  public totalItems!: number;
 
   @Expose()
-  public currentPage: number;
+  public currentPage!: number;
 
   @Expose()
-  public itemsPerPage: number;
+  public itemsPerPage!: number;
 }

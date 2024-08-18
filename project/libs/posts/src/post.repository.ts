@@ -1,14 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PostType, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
-import { PaginationResult, Post } from '@project/shared/core';
-
+import { PaginationResult, Post, PostStatus, PostType } from '@project/shared/core';
+import {
+  PostType as PrismaPostType,
+  StatusType as PrismaPostStatus,
+} from '@prisma/client';
 import { PostEntity } from './post.entity';
 import { PostFactory } from './post.factory';
 import { PostQuery } from './post.query';
 import { BasePostgresRepository } from '../../shared/data-access/src/repository/base-postgres.repository';
 import { PrismaClientService } from '@project/shared/models';
-import { mapPostStatus, mapPostType } from './mappers';
+import { mapPostStatus, mapPostType } from '@project/shared/core';
 import { DEFAULT_PAGE_COUNT, DEFAULT_POST_COUNT_LIMIT } from './post.constant';
 
 @Injectable()
@@ -66,8 +69,18 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
       throw new NotFoundException(`Post with id ${id} not found.`);
     }
 
-    // @ts-ignore
-    return this.createEntityFromDocument(document);
+    console.log(document);
+    const entity = this.createEntityFromDocument({
+      ...document,
+      type: document.type as PostType,
+      status: document.status as PostStatus,
+    });
+
+    if (!entity) {
+      throw new NotFoundException(`Post with id ${id} not found.`);
+    }
+
+    return entity;
   }
 
   public override async update(entity: PostEntity): Promise<void> {
@@ -95,8 +108,9 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
 
   public async find(query?: PostQuery): Promise<PaginationResult<PostEntity>> {
     const skip = query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
-    console.log(query?.page, query?.limit, skip);
-    const take = Number(query?.limit);
+    const take = query?.limit
+      ? Math.max(1, Math.min(query.limit, 50))
+      : DEFAULT_POST_COUNT_LIMIT;
     const where: Prisma.PostWhereInput = {};
     const orderBy: Prisma.PostOrderByWithRelationInput = {};
 
@@ -119,11 +133,18 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
     ]);
 
     return {
-      // @ts-ignore
-      entities: records.map((record) => this.createEntityFromDocument(record)),
+      entities: records
+        .map((record) =>
+          this.createEntityFromDocument({
+            ...record,
+            type: record.type as PostType,
+            status: record.status as PostStatus,
+          }),
+        )
+        .filter((entity): entity is PostEntity => entity !== null),
       currentPage: query?.page ?? DEFAULT_PAGE_COUNT,
-      totalPages: this.calculatePostsPage(postCount, take ?? 50),
-      itemsPerPage: take ?? DEFAULT_POST_COUNT_LIMIT,
+      totalPages: this.calculatePostsPage(postCount, take),
+      itemsPerPage: take,
       totalItems: postCount,
     };
   }

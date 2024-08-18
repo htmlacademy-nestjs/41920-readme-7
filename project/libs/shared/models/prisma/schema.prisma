@@ -32,7 +32,6 @@ model Post {
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime  @updatedAt @map("updated_at")
   userId         String    @map("user_id")
-  publishDate    DateTime? @map("publish_date")
   type           PostType
   status         StatusType
   title          String?
@@ -46,7 +45,6 @@ model Post {
   videoLink      String?   @map("video_link")
   isReposted     Boolean?  @map("is_reposted")
   creatorUserId  String?   @map("creator_user_id")
-  originalPostId String?   @map("original_post_id")
   comments       Comment[]
   likes          Like[]
   tags           String[]

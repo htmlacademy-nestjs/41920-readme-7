@@ -54,7 +54,6 @@ async function seedDb(prismaClient: PrismaClient) {
         postText: post.postText || undefined,
         quoteText: post.quoteText || undefined,
         quoteAuthor: post.quoteAuthor || undefined,
-        publishDate: new Date(),
         isReposted: false,
         likes: {
           create: post.likes.map((like) => ({

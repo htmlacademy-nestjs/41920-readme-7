@@ -2,6 +2,7 @@ import { Entity, Post, PostStatus, PostType, StorableEntity } from '@project/sha
 import { LikeEntity } from '@project/likes';
 import { LikeFactory } from '../../likes/src/like.factory';
 import { CommentEntity, CommentFactory } from '@project/comments';
+import { Expose } from 'class-transformer';
 
 export class PostEntity extends Entity implements StorableEntity<Post> {
   title?: string;
@@ -18,8 +19,6 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
   photoLink?: string;
   link?: string;
   description?: string;
-  originalAuthorId?: string;
-  originalPostId?: string;
   isReposted!: boolean;
   tags: string[] = [];
   comments: CommentEntity[] = [];
@@ -39,8 +38,6 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
     this.userId = post.userId;
     this.type = post.type;
     this.status = post.status;
-    this.originalAuthorId = post.originalAuthorId;
-    this.originalPostId = post.originalPostId;
     this.isReposted = post.isReposted;
     this.title = post.title;
     this.createdAt = post.createdAt;

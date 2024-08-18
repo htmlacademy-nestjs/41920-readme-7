@@ -12,12 +12,6 @@ export class PostRdo {
   userId: string = '';
 
   @Expose()
-  originalUserId?: string;
-
-  @Expose()
-  originalPostId?: string;
-
-  @Expose()
   type: PostType = PostType.TEXT;
 
   @Expose()
