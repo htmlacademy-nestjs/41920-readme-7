@@ -43,8 +43,7 @@ model Post {
   announce       String?
   postText       String?   @map("post_text")
   videoLink      String?   @map("video_link")
-  isReposted     Boolean?  @map("is_reposted")
-  creatorUserId  String?   @map("creator_user_id")
+  isReposted     Boolean?  @default(false) @map("is_reposted")
   comments       Comment[]
   likes          Like[]
   tags           String[]

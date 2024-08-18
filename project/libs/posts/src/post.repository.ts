@@ -2,10 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 import { PaginationResult, Post, PostStatus, PostType } from '@project/shared/core';
-import {
-  PostType as PrismaPostType,
-  StatusType as PrismaPostStatus,
-} from '@prisma/client';
 import { PostEntity } from './post.entity';
 import { PostFactory } from './post.factory';
 import { PostQuery } from './post.query';
@@ -69,7 +65,6 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
       throw new NotFoundException(`Post with id ${id} not found.`);
     }
 
-    console.log(document);
     const entity = this.createEntityFromDocument({
       ...document,
       type: document.type as PostType,
