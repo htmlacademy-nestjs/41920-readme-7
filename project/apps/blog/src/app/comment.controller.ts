@@ -11,7 +11,6 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import { fillDto } from '@project/shared/helpers';
-import { PostService } from '@project/posts';
 import { CommentService } from '@project/comments';
 import { CommentRdo } from '@project/comments';
 

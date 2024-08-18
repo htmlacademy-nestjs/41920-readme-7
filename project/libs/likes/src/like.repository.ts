@@ -13,8 +13,10 @@ export class LikeRepository extends BasePostgresRepository<LikeEntity, Like> {
   }
 
   public override async save(entity: LikeEntity) {
+    const pojoEntity = entity.toPOJO();
+    const { id, ...dataWithoutId } = pojoEntity;
     const record = await this.client.like.create({
-      data: { ...entity.toPOJO() },
+      data: dataWithoutId,
     });
 
     entity.id = record.id;

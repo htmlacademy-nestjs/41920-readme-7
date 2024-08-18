@@ -54,7 +54,7 @@ Content-Type: application/json
 ###
 
 # Delete the post by id
-DELETE http://localhost:3000/api/posts/ab04593b-da99-4fe3-8b4b-e06d82e2efdd HTTP/1.1
+DELETE http://localhost:3000/api/posts/6d308040-96a2-4162-bea6-2338e9976540HTTP/1.1
 
 ###
 
@@ -74,7 +74,15 @@ POST http://localhost:3000/api/posts/6d308040-96a2-4162-bea6-2338e9976540/commen
 Content-Type: application/json
 
 {
-  "message": "New Comment",
+  "message": "New Comment 1",
   "userId": "658170cbb954e9f5b905ccf4"
+}
+###
+
+POST http://localhost:3000/api/posts/79edfe2a-1093-4cb7-9a31-9bea70048773/likes HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "6d308040-96a2-4162-bea6-2338e9976540"
 }
 

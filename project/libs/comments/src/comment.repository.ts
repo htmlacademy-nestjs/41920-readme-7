@@ -16,8 +16,10 @@ export class CommentRepository extends BasePostgresRepository<CommentEntity, Com
   }
 
   public override async save(entity: CommentEntity) {
+    const pojoEntity = entity.toPOJO();
+    const { id, ...dataWithoutId } = pojoEntity;
     const record = await this.client.comment.create({
-      data: { ...entity.toPOJO() },
+      data: dataWithoutId,
     });
 
     entity.id = record.id;
