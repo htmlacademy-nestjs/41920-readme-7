@@ -11,11 +11,13 @@ export class LikeFactory implements EntityFactory<LikeEntity> {
     return new LikeEntity(data);
   }
 
-  public static createFromUserIdAndPostId(dto: CreateLikeDto): LikeEntity {
-    const entity = new LikeEntity(dto);
-    entity.postId = dto.postId;
-    entity.userId = dto.userId;
-
-    return entity;
+  public createFromDto(dto: CreateLikeDto, postId: string): LikeEntity {
+    const currentDate = new Date();
+    return new LikeEntity({
+      ...dto,
+      postId,
+      createdAt: currentDate,
+      updatedAt: currentDate,
+    });
   }
 }

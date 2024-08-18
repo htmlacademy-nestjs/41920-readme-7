@@ -1,4 +1,11 @@
-import { ArrayNotEmpty, IsArray, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  ArrayNotEmpty,
+  IsArray,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { PostStatus, PostType } from '@project/shared/core';
 
 export class UpdatePostDto {
@@ -17,11 +24,11 @@ export class UpdatePostDto {
 
   @IsString()
   @IsNotEmpty()
-  public type: PostType = PostType.Link;
+  public type: PostType = PostType.LINK;
 
   @IsString()
   @IsNotEmpty()
-  public status: PostStatus = PostStatus.Draft;
+  public status: PostStatus = PostStatus.DRAFT;
 
   @IsString()
   public announce?: string;
@@ -38,13 +45,18 @@ export class UpdatePostDto {
   @IsString()
   public quoteAuthor?: string;
 
-  @IsUUID('all', { each: true })
   @IsArray()
-  @ArrayNotEmpty()
   public tags: string[] = [];
 
   @IsUUID('all', { each: true })
   @IsArray()
   @ArrayNotEmpty()
+  @IsOptional()
   public likes: string[] = [];
+
+  @IsUUID('all', { each: true })
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsOptional()
+  public comments: string[] = [];
 }

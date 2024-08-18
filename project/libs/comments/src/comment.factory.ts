@@ -11,11 +11,13 @@ export class CommentFactory implements EntityFactory<CommentEntity> {
     return new CommentEntity(data);
   }
 
-  public static createFromUserIdAndPostId(dto: CreateCommentDto): CommentEntity {
-    const entity = new CommentEntity(dto);
-    entity.postId = dto.postId;
-    entity.userId = dto.userId;
-
-    return entity;
+  public createFromDto(dto: CreateCommentDto, postId: string): CommentEntity {
+    const currentDate = new Date();
+    return new CommentEntity({
+      ...dto,
+      postId,
+      createdAt: currentDate,
+      updatedAt: currentDate,
+    });
   }
 }

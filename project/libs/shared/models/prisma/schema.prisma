@@ -15,16 +15,16 @@ datasource db {
 }
 
 enum StatusType {
-  draft
-  published
+  DRAFT
+  PUBLISHED
 }
 
 enum PostType {
-  quote
-  photo
-  video
-  text
-  link
+  VIDEO
+  TEXT
+  QUOTE
+  PHOTO
+  LINK
 }
 
 model Post {
@@ -49,6 +49,7 @@ model Post {
   originalPostId String?   @map("original_post_id")
   comments       Comment[]
   likes          Like[]
+  tags           String[]
 
   @@map("posts")
 }

@@ -1,6 +1,11 @@
 export * from './post.factory';
 export * from './post.service';
+export * from './post.repository';
+export * from './post.service';
+export * from './post.module';
+export * from './post.query';
 export { CreatePostDto } from './dto/create-post.dto';
 export { UpdatePostDto } from './dto/update-post.dto';
 export { PostModule } from './post.module';
 export { PostRdo } from './rdo/post.rdo';
+export { PostWithPaginationRdo } from './rdo/post-with-pagination.rdo';

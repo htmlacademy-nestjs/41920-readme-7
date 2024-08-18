@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PostType, PrismaClient, StatusType } from '@prisma/client';
 
 const FIRST_USER_ID = '658170cbb954e9f5b905ccf4';
 const SECOND_USER_ID = '6581762309c030b503e30512';
@@ -11,25 +11,29 @@ function getPosts() {
     {
       id: FIRST_POST_UUID,
       userId: FIRST_USER_ID,
-      type: 'text',
-      status: 'published',
+      type: PostType.TEXT,
+      status: StatusType.PUBLISHED,
       title: 'Мой первый пост',
       description: 'Это мой первый пост в блоге',
       announce: 'Краткое содержание первого поста',
       postText:
         'Полный текст моего первого поста. Здесь может быть много интересной информации.',
-      tags: [{ title: 'блог' }, { title: 'первыйпост' }],
-      likes: [{ userId: SECOND_USER_ID }],
+      tags: ['tag1', 'tag2', 'tag3'],
+      likes: [{ postId: FIRST_POST_UUID, userId: SECOND_USER_ID }],
     },
     {
       id: SECOND_POST_UUID,
       userId: SECOND_USER_ID,
-      type: 'quote',
-      status: 'published',
+      type: PostType.QUOTE,
+      status: StatusType.PUBLISHED,
       quoteText: 'Быть или не быть, вот в чем вопрос',
       quoteAuthor: 'Уильям Шекспир',
-      tags: [{ title: 'цитата' }, { title: 'шекспир' }],
-      likes: [{ userId: FIRST_USER_ID }],
+      tags: ['tag1', 'tag2'],
+      likes: [{ postId: SECOND_POST_UUID, userId: FIRST_USER_ID }],
+      comments: [
+        { postId: SECOND_POST_UUID, userId: FIRST_USER_ID, message: 'Отличная цитата!' },
+        { postId: SECOND_POST_UUID, userId: SECOND_USER_ID, message: 'Спасибо!' },
+      ],
     },
   ];
 }
@@ -44,20 +48,25 @@ async function seedDb(prismaClient: PrismaClient) {
         userId: post.userId,
         type: post.type,
         status: post.status,
-        title: post.title,
-        description: post.description,
-        announce: post.announce,
-        postText: post.postText,
-        quoteText: post.quoteText,
-        quoteAuthor: post.quoteAuthor,
-        tags: post.tags
+        title: post.title || undefined,
+        description: post.description || undefined,
+        announce: post.announce || undefined,
+        postText: post.postText || undefined,
+        quoteText: post.quoteText || undefined,
+        quoteAuthor: post.quoteAuthor || undefined,
+        publishDate: new Date(),
+        isReposted: false,
+        likes: {
+          create: post.likes.map((like) => ({
+            userId: like.userId,
+          })),
+        },
+        comments: post.comments
           ? {
-              create: post.tags,
-            }
-          : undefined,
-        likes: post.likes
-          ? {
-              create: post.likes,
+              create: post.comments.map((comment) => ({
+                userId: comment.userId,
+                message: comment.message,
+              })),
             }
           : undefined,
       },

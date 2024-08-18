@@ -29,7 +29,6 @@
       "@project/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@project/shared/helpers": ["libs/shared/helpers/src/index.ts"],
       "@project/shared/models": ["libs/shared/models/src/index.ts"],
-      "@project/tags": ["libs/tags/src/index.ts"],
       "@project/types": ["libs/shared/types/src/index.ts"],
       "@project/users": ["libs/users/src/index.ts"]
     }

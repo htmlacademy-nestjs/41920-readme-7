@@ -1,7 +1,7 @@
 export enum PostType {
-  Video = 'VIDEO',
-  Text = 'TEXT',
-  Quote = 'QUOTE',
-  Photo = 'PHOTO',
-  Link = 'LINK',
+  VIDEO = 'VIDEO',
+  TEXT = 'TEXT',
+  QUOTE = 'QUOTE',
+  PHOTO = 'PHOTO',
+  LINK = 'LINK',
 }

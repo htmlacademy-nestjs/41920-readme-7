@@ -1,8 +1,8 @@
 import { Expose } from 'class-transformer';
 
 import { PostStatus, PostType } from '@project/shared/core';
-import { TagRdo } from '@project/tags';
 import { LikeRdo } from '@project/likes';
+import { CommentRdo } from '@project/comments';
 
 export class PostRdo {
   @Expose()
@@ -18,10 +18,10 @@ export class PostRdo {
   originalPostId?: string;
 
   @Expose()
-  type: PostType = PostType.Text;
+  type: PostType = PostType.TEXT;
 
   @Expose()
-  status: PostStatus = PostStatus.Draft;
+  status: PostStatus = PostStatus.DRAFT;
 
   @Expose()
   isReposted?: boolean;
@@ -54,7 +54,10 @@ export class PostRdo {
   videoLink?: string;
 
   @Expose()
-  tags: TagRdo[] = [];
+  tags: string[] = [];
+
+  @Expose()
+  comments: CommentRdo[] = [];
 
   @Expose()
   likes: LikeRdo[] = [];

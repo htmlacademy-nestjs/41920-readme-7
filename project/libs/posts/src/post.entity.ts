@@ -1,16 +1,15 @@
 import { Entity, Post, PostStatus, PostType, StorableEntity } from '@project/shared/core';
-import { TagEntity } from '@project/tags';
-import { TagFactory } from '../../tags/src/tag.factory';
 import { LikeEntity } from '@project/likes';
 import { LikeFactory } from '../../likes/src/like.factory';
+import { CommentEntity, CommentFactory } from '@project/comments';
 
 export class PostEntity extends Entity implements StorableEntity<Post> {
   title?: string;
-  type: PostType = PostType.Text;
+  type: PostType = PostType.TEXT;
   userId: string = '';
   createdAt: Date = new Date();
   updatedAt: Date = new Date();
-  status: PostStatus = PostStatus.Draft;
+  status: PostStatus = PostStatus.DRAFT;
   videoLink?: string;
   announce?: string;
   postText?: string;
@@ -22,7 +21,8 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
   originalAuthorId?: string;
   originalPostId?: string;
   isReposted!: boolean;
-  tags: TagEntity[] = [];
+  tags: string[] = [];
+  comments: CommentEntity[] = [];
   likes: LikeEntity[] = [];
 
   constructor(post?: Post) {
@@ -53,21 +53,19 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
     this.postText = post.postText;
     this.videoLink = post.videoLink;
     this.announce = post.announce;
+    this.tags = post.tags;
 
-    this.tags = post.tags?.map((data) =>
-      TagFactory.createFromTitle({
-        title: data.title,
-        postId: data.postId,
-      }),
-    );
-    this.likes = post.likes?.map((data) =>
-      LikeFactory.createFromUserIdAndPostId({
-        userId: data.userId,
-        postId: data.id ?? '',
-      }),
-    );
+    const blogCommentFactory = new CommentFactory();
+    for (const comment of post.comments) {
+      const blogCommentEntity = blogCommentFactory.create(comment);
+      this.comments.push(blogCommentEntity);
+    }
 
-    return this;
+    const blogLikeFactory = new LikeFactory();
+    for (const like of post.likes) {
+      const blogLikeEntity = blogLikeFactory.create(like);
+      this.likes.push(blogLikeEntity);
+    }
   }
 
   public toPOJO(): Post {
@@ -86,10 +84,11 @@ export class PostEntity extends Entity implements StorableEntity<Post> {
       updatedAt: this.updatedAt,
       quoteAuthor: this.quoteAuthor,
       announce: this.announce,
+      tags: this.tags,
       postText: this.postText,
       videoLink: this.videoLink,
-      tags: this.tags?.map((tag) => tag.toPOJO()),
-      likes: this.likes?.map((like) => like.toPOJO()),
+      likes: this.likes.map((likeEntity) => likeEntity.toPOJO()),
+      comments: this.comments.map((commentEntity) => commentEntity.toPOJO()),
     };
 
     return post;
