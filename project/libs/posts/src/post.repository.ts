@@ -103,6 +103,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, Post> {
 
   public async find(query?: PostQuery): Promise<PaginationResult<PostEntity>> {
     const skip = query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
+    console.log(typeof query?.limit);
     const take = query?.limit
       ? Math.max(1, Math.min(query.limit, 50))
       : DEFAULT_POST_COUNT_LIMIT;

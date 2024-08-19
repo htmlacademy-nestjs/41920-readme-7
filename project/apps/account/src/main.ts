@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
@@ -11,6 +11,11 @@ async function bootstrap() {
     .setDescription('My app description')
     .addTag('auth')
     .build();
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   const globalPrefix = 'api';
