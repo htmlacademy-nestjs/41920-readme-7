@@ -6,6 +6,6 @@ import { LikeFactory } from './like.factory';
 
 @Module({
   providers: [LikeService, LikeRepository, LikeFactory],
-  exports: [LikeService],
+  exports: [LikeService, LikeRepository, LikeFactory],
 })
 export class LikeModule {}

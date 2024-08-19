@@ -21,11 +21,11 @@ export class CreatePostDto {
 
   @IsString()
   @IsNotEmpty()
-  public type: PostType = PostType.Text;
+  public type: PostType = PostType.TEXT;
 
   @IsString()
   @IsNotEmpty()
-  public status: PostStatus = PostStatus.Draft;
+  public status: PostStatus = PostStatus.DRAFT;
 
   @IsString()
   public announce?: string;
@@ -42,8 +42,16 @@ export class CreatePostDto {
   @IsString()
   public quoteAuthor?: string;
 
+  @IsArray()
+  public tags: string[] = [];
+
   @IsUUID('all', { each: true })
   @IsArray()
   @ArrayNotEmpty()
-  public tags: string[] = [];
+  public likes: string[] = [];
+
+  @IsUUID('all', { each: true })
+  @IsArray()
+  @ArrayNotEmpty()
+  public comments: string[] = [];
 }

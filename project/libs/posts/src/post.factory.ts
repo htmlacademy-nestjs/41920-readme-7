@@ -19,6 +19,7 @@ export class PostFactory implements EntityFactory<PostEntity> {
     entity.announce = dto.announce;
     entity.postText = dto.postText;
     entity.link = dto.link;
+    entity.tags = dto.tags;
     entity.description = dto.description;
     entity.photoLink = dto.photoLink;
     entity.quoteText = dto.quoteText;

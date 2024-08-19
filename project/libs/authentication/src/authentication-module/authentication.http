@@ -1,0 +1,42 @@
+# Create a new user
+POST http://localhost:3000/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user@notfound.local1",
+  "login": "Leks",
+  "password": "123456"
+}
+
+###
+
+# Get user by ID
+GET http://localhost:3000/api/auth/66c100c9689471f1f4396f39 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmMxMDBjOTY4OTQ3MWYxZjQzOTZmMzkiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQubG9jYWwiLCJsb2dpbiI6Ikxla3MiLCJpYXQiOjE3MjM5Mzg5MzMsImV4cCI6MTcyMzkzOTIzM30.f3AAq04o6GEiz8Rkafez3ROVK-u7RA3uUYKwRqcEqV0
+
+###
+
+# Login user by email and password
+POST http://localhost:3000/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user@notfound.local",
+  "password": "123456"
+}
+
+###
+
+# Get new JWT pair
+POST http://localhost:3000/api/auth/refresh HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmMxMDBjOTY4OTQ3MWYxZjQzOTZmMzkiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQubG9jYWwiLCJsb2dpbiI6Ikxla3MiLCJ0b2tlbklkIjoiNzIyNmZhMjEtYjdiNy00MTFkLTk4ZTItYzc1ODExYWU1NWFhIiwiaWF0IjoxNzIzOTM3NjY3LCJleHAiOjE3MjY1Mjk2Njd9.NwE_xueU7GvGgNQjcwxefGB5RzIeMSiGC9iMAGTAxdc
+
+###
+
+# Check user token
+POST http://localhost:3000/api/auth/check HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmMxMDBjOTY4OTQ3MWYxZjQzOTZmMzkiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQubG9jYWwiLCJsb2dpbiI6Ikxla3MiLCJpYXQiOjE3MjM5Mzc2NjcsImV4cCI6MTcyMzkzNzk2N30.oaf86DWy1tFz8y8Jfk0F0HBh3Nac24VgV3RX1585HgE
+
+###
+
+

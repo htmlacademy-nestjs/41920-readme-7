@@ -1,8 +1,30 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  HttpCode,
+  HttpStatus,
+  Query,
+  Patch,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { fillDto } from '@project/shared/helpers';
-import { CreatePostDto, PostRdo, PostService, UpdatePostDto } from '@project/posts';
+import {
+  CreatePostDto,
+  PostQuery,
+  PostRdo,
+  PostService,
+  PostWithPaginationRdo,
+  UpdatePostDto,
+} from '@project/posts';
+import { CreateCommentDto } from '@project/comments';
+import { CommentRdo } from '@project/comments';
+import { CreateLikeDto } from '../../../../libs/likes/src/dto/create-like.dto';
+import { LikeRdo } from '@project/likes';
 
 @ApiTags('Posts')
 @Controller('posts')
@@ -17,30 +39,45 @@ export class PostsController {
   }
 
   @Get('/')
-  public async getAll() {
-    const postEntities = await this.postService.getAllPosts();
-    return fillDto(
-      PostRdo,
-      postEntities.map((post) => post.toPOJO()),
-    );
+  public async index(@Query() query: PostQuery) {
+    const postsWithPagination = await this.postService.getAllPosts(query);
+    const result = {
+      ...postsWithPagination,
+      entities: postsWithPagination.entities.map((post) => post.toPOJO()),
+    };
+    return fillDto(PostWithPaginationRdo, result);
   }
 
   @Post('/')
   public async create(@Body() dto: CreatePostDto) {
-    const postEntity = await this.postService.createPost(dto);
-
-    return fillDto(PostRdo, postEntity.toPOJO());
+    const newPost = await this.postService.createPost(dto);
+    return fillDto(PostRdo, newPost.toPOJO());
   }
 
-  @Put('/:postId')
-  public async update(@Param('postId') postId: string, @Body() dto: UpdatePostDto) {
-    const postEntity = await this.postService.updatePost(postId, dto);
-
-    return fillDto(PostRdo, postEntity.toPOJO());
+  @Delete('/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public async destroy(@Param('id') id: string) {
+    await this.postService.deletePost(id);
   }
 
-  @Delete('/:postId')
-  public async delete(@Param('postId') postId: string) {
-    await this.postService.deletePost(postId);
+  @Patch('/:id')
+  public async update(@Param('id') id: string, @Body() dto: UpdatePostDto) {
+    const updatedPost = await this.postService.updatePost(id, dto);
+    return fillDto(PostRdo, updatedPost.toPOJO());
+  }
+
+  @Post('/:postId/comments')
+  public async createComment(
+    @Param('postId') postId: string,
+    @Body() dto: CreateCommentDto,
+  ) {
+    const newComment = await this.postService.addComment(postId, dto);
+    return fillDto(CommentRdo, newComment.toPOJO());
+  }
+
+  @Post('/:postId/likes')
+  public async createLike(@Param('postId') postId: string, @Body() dto: CreateLikeDto) {
+    const newLike = await this.postService.addLike(postId, dto);
+    return fillDto(LikeRdo, newLike.toPOJO());
   }
 }

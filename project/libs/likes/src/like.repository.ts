@@ -13,8 +13,10 @@ export class LikeRepository extends BasePostgresRepository<LikeEntity, Like> {
   }
 
   public override async save(entity: LikeEntity) {
+    const pojoEntity = entity.toPOJO();
+    const { id, ...dataWithoutId } = pojoEntity;
     const record = await this.client.like.create({
-      data: { ...entity.toPOJO() },
+      data: dataWithoutId,
     });
 
     entity.id = record.id;
@@ -27,7 +29,9 @@ export class LikeRepository extends BasePostgresRepository<LikeEntity, Like> {
       },
     });
 
-    return documents.map((document) => this.createEntityFromDocument(document));
+    return documents
+      .map((document) => this.createEntityFromDocument(document))
+      .filter((entity): entity is LikeEntity => entity !== null);
   }
 
   public async findByPostAndUserId(postId: string, userId: string) {
