@@ -67,6 +67,8 @@ export class AuthenticationController {
       return;
     }
     const userToken = await this.authService.createUserToken(user);
+    const { email, login } = user;
+    await this.notifyService.registerSubscriber({ email, login });
     return fillDto(LoggedUserRdo, { ...user.toPOJO(), ...userToken });
   }
 

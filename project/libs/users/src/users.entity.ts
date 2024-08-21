@@ -5,10 +5,7 @@ import { StorableEntity } from '@project/shared/core';
 import { AuthUser } from '@project/types';
 import { SALT_ROUNDS } from './user.constant';
 
-export class UsersEntity
-  extends Entity
-  implements StorableEntity<Omit<AuthUser, 'passwordHash'>>
-{
+export class UsersEntity extends Entity implements StorableEntity<AuthUser> {
   public email: string = '';
   public login: string = '';
   public passwordHash: string = '';
@@ -29,11 +26,12 @@ export class UsersEntity
     this.passwordHash = user.passwordHash;
   }
 
-  public toPOJO(): Omit<AuthUser, 'passwordHash'> {
+  public toPOJO(): AuthUser {
     return {
       id: this.id,
       email: this.email,
       login: this.login,
+      passwordHash: this.passwordHash,
     };
   }
 
