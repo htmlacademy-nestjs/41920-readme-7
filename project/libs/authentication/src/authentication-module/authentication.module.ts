@@ -10,6 +10,7 @@ import { UsersModule } from '@project/users';
 import { JwtRefreshStrategy } from '../strategies/jwt-refresh.strategy';
 import { RefreshTokenModule } from '../refresh-token-module/refresh-token.module';
 import { LocalStrategy } from '../strategies/local.strategy';
+import { NotifyModule } from '@project/auth-notify';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { LocalStrategy } from '../strategies/local.strategy';
       useFactory: getJwtOptions,
     }),
     RefreshTokenModule,
+    NotifyModule,
   ],
   controllers: [AuthenticationController],
   providers: [

@@ -16,10 +16,15 @@
     "baseUrl": ".",
     "paths": {
       "@project/account/authentication": ["libs/account/authentication/src/index.ts"],
+      "@project/auth-notify": ["libs/auth-notify/src/index.ts"],
       "@project/authentication": ["libs/authentication/src/index.ts"],
       "@project/comments": ["libs/comments/src/index.ts"],
       "@project/config": ["libs/config/src/index.ts"],
+      "@project/email-subscriber": ["libs/notity/email-subscriber/src/index.ts"],
+      "@project/file-config": ["libs/file-vault/file-config/src/index.ts"],
+      "@project/file-uploader": ["libs/file-vault/file-uploader/src/index.ts"],
       "@project/likes": ["libs/likes/src/index.ts"],
+      "@project/notify-config": ["libs/notity/notify-config/src/index.ts"],
       "@project/pipes": ["libs/shared/pipes/src/index.ts"],
       "@project/posts": ["libs/posts/src/index.ts"],
       "@project/refresh-token-module": [

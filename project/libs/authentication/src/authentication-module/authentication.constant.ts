@@ -12,7 +12,7 @@ export const AuthenticationResponseMessage = {
 } as const;
 
 export const AuthenticationValidateMessage = {
-  EmailNotValid: 'The email is not valid',
+  EmailNotValid: 'The email isnt valid',
   NameIsNotString: 'The name must be a string',
   PasswordMinLength: `The password must be at least 8 characters long`,
   PasswordMaxLength: `The password must be at least 30 characters long`,
