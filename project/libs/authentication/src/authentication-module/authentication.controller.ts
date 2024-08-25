@@ -24,11 +24,15 @@ import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 import { RequestWithUser } from './request-with-user.interface';
 import { RequestWithTokenPayload } from './request-with-token-payload.interface';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
+import { NotifyService } from '@project/auth-notify';
 
 @ApiTags('authentication')
 @Controller('auth')
 export class AuthenticationController {
-  constructor(private readonly authService: AuthenticationService) {}
+  constructor(
+    private readonly authService: AuthenticationService,
+    private readonly notifyService: NotifyService,
+  ) {}
 
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -41,6 +45,8 @@ export class AuthenticationController {
   @Post('register')
   public async create(@Body() dto: CreateUserDto) {
     const newUser = await this.authService.register(dto);
+    const { email, login } = newUser;
+    await this.notifyService.registerSubscriber({ email, login });
 
     return newUser.toPOJO();
   }
@@ -61,6 +67,8 @@ export class AuthenticationController {
       return;
     }
     const userToken = await this.authService.createUserToken(user);
+    const { email, login } = user;
+    await this.notifyService.registerSubscriber({ email, login });
     return fillDto(LoggedUserRdo, { ...user.toPOJO(), ...userToken });
   }
 

@@ -40,6 +40,10 @@ export function getMongoConnectionString({
   return `mongodb://${username}:${password}@${host}:${port}/${databaseName}?authSource=${authDatabase}`;
 }
 
+export function getRabbitMQConnectionString({ user, password, host, port }): string {
+  return `amqp://${user}:${password}@${host}:${port}`;
+}
+
 export function parseTime(time: string): TimeAndUnit {
   const regex = /^(\d+)([shdmy])/;
   const match = regex.exec(time);
